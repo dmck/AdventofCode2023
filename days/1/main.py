@@ -53,12 +53,13 @@ if __name__ == '__main__':
         sum = 0
         # for each row in the input data
         for index, row in input_data.iterrows():
-            # print (row[0])
+            # Get the positions of the first and last digits, e.g. 1, 2, 3, etc.
             first_digit_position = get_position_of_first_digit(row[0])
             last_digit_position = get_position_of_last_digit(row[0])
-            # print("first digit position: " + str(first_digit_position))
-            # print("last digit position: " + str(last_digit_position))
 
+            # Why isn't this object-oriented?
+            # Because it's an Advent Calendar! It should look like a Christmas tree!
+            # Create a DataFrame to track the first and last occurrences of the number words
             numbers_df = pd.DataFrame(columns=['number', 'value', 'first', 'last'])
             numbers_df.loc[0] = ['one', 1, None, None]
             numbers_df.loc[1] = ['two', 2, None, None]
@@ -70,23 +71,24 @@ if __name__ == '__main__':
             numbers_df.loc[7] = ['eight', 8, None, None]
             numbers_df.loc[8] = ['nine', 9, None, None]
 
+            # Populate the data above, so we know where each word appears in the string
             find_numbers(row[0])
-            # if first and last are None, drop it
-            numbers_df = numbers_df.dropna(subset=['first', 'last'])
-            # print the numbers_df
-            # for index, row in numbers_df.iterrows():
-            #     print(row['number'] + ": " + str(row['first']) + ", " + str(row['last']))
 
-            # if the numbers_df is empty, use the digits
+            # Drop any that do not contain number words, e.g. "one" or "two"
+            numbers_df = numbers_df.dropna(subset=['first', 'last'])
+
+            # If this row does not contain any number words, just use the digits
             if numbers_df.empty:
                 # get the char at the first digit position and last digit position
                 number = row[0][first_digit_position] + row[0][last_digit_position]
+
+            # Otherwise, determine which digit / number appears first and last
             else:
-                # get the rows from the numbers_df representing the first and last numbers (one, two, three, etc.)
+                # Get the first and last number words (rows from the numbers_df)
                 first_number = numbers_df.loc[numbers_df['first'].idxmin()]
                 last_number = numbers_df.loc[numbers_df['last'].idxmax()]
 
-                # set the first and last values base on whether a digit or number word appears first
+                # Set the first value based on whether a digit or number word appears first
                 if first_number['first'] < first_digit_position:
                     # get the value from the numbers_df
                     first = first_number['value']
@@ -94,7 +96,7 @@ if __name__ == '__main__':
                     # get the char at the first_number first position
                     first = row[0][first_digit_position]
 
-                # set the first and last values base on whether a digit or number word appears last
+                # Set the last values base on whether a digit or number word appears last
                 if last_number['last'] > last_digit_position:
                     # get the char at the last digit position
                     last = last_number['value']
@@ -102,17 +104,12 @@ if __name__ == '__main__':
                     # get the char at the last_number last position
                     last = row[0][last_digit_position]
 
+                # Concatenate the first and last values
                 number = str(first) + str(last)
-
-            # print("first number: " + str(first_number['number']) + ", " + str(first_number['value']))
-            # print("last number: " + str(last_number['number']) + ", " + str(last_number['value']))
 
             # add the number to the sum
             sum += int(number)
 
-            # print(number)
-            # print()
-
-        # print the sum
+        # print the result
         print(sum)
 
