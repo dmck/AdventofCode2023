@@ -59,20 +59,27 @@ if __name__ == '__main__':
 
             # print(f"Game: {input_data.loc[index, 'game']}, Red: {input_data.loc[index, 'red']}, Blue: {input_data.loc[index, 'blue']}, Green: {input_data.loc[index, 'green']}")
 
+        # Used for Part 1
         # Drop rows where color appears more more than max
-        input_data = input_data[input_data['red'] <= 12]
-        input_data = input_data[input_data['blue'] <= 14]
-        input_data = input_data[input_data['green'] <= 13]
-
+        # input_data = input_data[input_data['red'] <= 12]
+        # input_data = input_data[input_data['blue'] <= 14]
+        # input_data = input_data[input_data['green'] <= 13]
         # print stats about the DataFrame
-        print(input_data.describe())
-
+        # print(input_data.describe())
         # print the length of the DataFrame
-        print(f"Number of rows: {len(input_data)}")
+        # print(f"Number of rows: {len(input_data)}")
+        # sum = 0
+        # for index, row in input_data.iterrows():
+        #     # print(row['game'])
+        #     sum += int(row['game'])
+        # print(f"Sum: {sum}")
 
-        sum = 0
+        # Add a column for power
+        input_data['power'] = 0
+
+        # for each row in the input data
         for index, row in input_data.iterrows():
-            # print(row['game'])
-            sum += int(row['game'])
+            # Calculate the power
+            input_data.loc[index, 'power'] = int(row['red']) * int(row['blue']) * int(row['green'])
 
-        print(f"Sum: {sum}")
+        print(input_data['power'].sum())
