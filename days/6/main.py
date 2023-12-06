@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 
+
 def part1():
     # make a dataframe with, columns time and distance, and values
     # Time:        44     89     96     91
@@ -11,11 +12,10 @@ def part1():
     for i in range(100):
         df[i] = False
 
-
     options_overall = []
     for index, row in df.iterrows():
         options_for_this_game = 0
-        #print(row['Time'], row['Distance'])
+        # print(row['Time'], row['Distance'])
         for seconds in range(0, 100):
             if seconds > row['Time']:
                 break
@@ -25,7 +25,7 @@ def part1():
                 distance = speed * time_remaining
                 if distance > row['Distance']:
                     df.loc[index, seconds] = True
-                    #print(f"Seconds: {seconds}, Speed: {speed}, Time Remaining: {time_remaining}, Distance: {distance}")
+                    # print(f"Seconds: {seconds}, Speed: {speed}, Time Remaining: {time_remaining}, Distance: {distance}")
                     options_for_this_game += 1
         options_overall.append(options_for_this_game)
 
@@ -34,6 +34,7 @@ def part1():
         result *= item
 
     print(result)
+
 
 def part2():
     # 44,899,691
@@ -61,11 +62,11 @@ def part2():
     c = 277113618901768
 
     # calculate the discriminant
-    D = b**2 - 4*a*c
+    D = b ** 2 - 4 * a * c
 
     # calculate the two solutions
-    x1 = int((-b - math.sqrt(D)) / (2*a))
-    x2 = int((-b + math.sqrt(D)) / (2*a))
+    x1 = int((-b - math.sqrt(D)) / (2 * a))
+    x2 = int((-b + math.sqrt(D)) / (2 * a))
 
     # print(x1, x2)
     # ```
@@ -83,6 +84,7 @@ def part2():
     print(x2, speed * time_remaining)
 
     print(x2 - x1)
+
 
 if __name__ == '__main__':
     # part1()
