@@ -60,7 +60,8 @@ class Hand():
             else:
                 return 3
         elif 2 in self.card_counts.values():
-            if 2 in self.card_counts.values():
+            # if there are multiple 2s
+            if list(self.card_counts.values()).count(2) > 1:
                 return 2
             else:
                 return 1
@@ -95,6 +96,7 @@ class Hand():
     def __lt__(self, other):
         # if the hand type is different, return the hand type with the higher value
         if self.hand_type != other.hand_type:
+            #print(f"Comparing {self.hand_type} to {other.hand_type} in {self.cards} and {other.cards}")
             return self.hand_type < other.hand_type
         # if the hand type is the same, determine the winner by comparing the cards
         else:
@@ -105,7 +107,7 @@ class Hand():
                     continue
                 # if the cards are different, return the card with the lower value
                 else:
-                    print(f"comparing {card} to {other.cards[index]} in {self.cards} and {other.cards}")
+                    # print(f"Comparing {card} to {other.cards[index]} in {self.cards} and {other.cards}")
                     return self.get_card_value(card) < self.get_card_value(other.cards[index])
 
         # Q: Why is 2 getting ranked higher than Q in this example?
